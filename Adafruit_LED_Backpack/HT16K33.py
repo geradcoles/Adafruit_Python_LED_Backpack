@@ -49,7 +49,7 @@ class HT16K33(object):
 	def begin(self):
 		"""Initialize driver with LEDs enabled and all turned off."""
 		# Turn on the oscillator.
-		self._device.writeList(HT16K33_SYSTEM_SETUP | HT16K33_OSCILLATOR, [])
+		self._device.writeList(HT16K33_SYSTEM_SETUP | HT16K33_OSCILLATOR, [0x00])
 		# Turn display on with no blinking.
 		self.set_blink(HT16K33_BLINK_OFF)
 		# Set display to full brightness.
@@ -63,7 +63,7 @@ class HT16K33(object):
 		if frequency not in [HT16K33_BLINK_OFF, HT16K33_BLINK_2HZ, 
 							 HT16K33_BLINK_1HZ, HT16K33_BLINK_HALFHZ]:
 			raise ValueError('Frequency must be one of HT16K33_BLINK_OFF, HT16K33_BLINK_2HZ, HT16K33_BLINK_1HZ, or HT16K33_BLINK_HALFHZ.')
-		self._device.writeList(HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | frequency, [])
+		self._device.writeList(HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | frequency, [0x00])
 
 	def set_brightness(self, brightness):
 		"""Set brightness of entire display to specified value (16 levels, from
@@ -71,7 +71,7 @@ class HT16K33(object):
 		"""
 		if brightness < 0 or brightness > 15:
 			raise ValueError('Brightness must be a value of 0 to 15.')
-		self._device.writeList(HT16K33_CMD_BRIGHTNESS | brightness, [])
+		self._device.writeList(HT16K33_CMD_BRIGHTNESS | brightness, [0x00])
 
 	def set_led(self, led, value):
 		"""Sets specified LED (value of 0 to 127) to the specified value, 0/False 
